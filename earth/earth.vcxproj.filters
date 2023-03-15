@@ -15,81 +15,87 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
+    <ClInclude Include="Include\pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="reclass.h">
+    <ClInclude Include="Include\reclass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImguiDraw.h">
+    <ClInclude Include="Include\x86Hook\x86Hook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="x86Hook\x86Hook.h">
+    <ClInclude Include="Include\x86Detour\x86Detour.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="x86Detour\x86Detour.h">
+    <ClInclude Include="Include\ImGui\imconfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imconfig.h">
+    <ClInclude Include="Include\ImGui\imgui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui.h">
+    <ClInclude Include="Include\ImGui\imgui_impl_opengl2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui_impl_opengl2.h">
+    <ClInclude Include="Include\ImGui\imgui_impl_win32.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui_impl_win32.h">
+    <ClInclude Include="Include\ImGui\imgui_internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui_internal.h">
+    <ClInclude Include="Include\ImGui\imstb_rectpack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imstb_rectpack.h">
+    <ClInclude Include="Include\ImGui\imstb_textedit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imstb_textedit.h">
+    <ClInclude Include="Include\ImGui\imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imstb_truetype.h">
+    <ClInclude Include="Include\Misc\OpenglHook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Misc\WindowProcedureHook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp">
+    <ClCompile Include="Include\dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp">
+    <ClCompile Include="Include\pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImguiDraw.cpp">
+    <ClCompile Include="Include\x86Hook\x86Hook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="x86Hook\x86Hook.cpp">
+    <ClCompile Include="Include\x86Detour\x86Detour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="x86Detour\x86Detour.cpp">
+    <ClCompile Include="Include\ImGui\imgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui.cpp">
+    <ClCompile Include="Include\ImGui\imgui_demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_demo.cpp">
+    <ClCompile Include="Include\ImGui\imgui_draw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_draw.cpp">
+    <ClCompile Include="Include\ImGui\imgui_impl_opengl2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_impl_opengl2.cpp">
+    <ClCompile Include="Include\ImGui\imgui_impl_win32.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_impl_win32.cpp">
+    <ClCompile Include="Include\ImGui\imgui_tables.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_tables.cpp">
+    <ClCompile Include="Include\ImGui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_widgets.cpp">
+    <ClCompile Include="Include\Misc\OpenglHook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Misc\WindowProcedureHook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

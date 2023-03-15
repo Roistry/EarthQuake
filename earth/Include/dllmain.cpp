@@ -1,4 +1,6 @@
 #include "pch.h"
+#define PlayerHeight 0.50f
+#define PlayerWidth 0.20f
 
 struct refdef_t
 {
@@ -85,17 +87,22 @@ int __stdcall WglSwapBuffers(HDC hDC)
     if (status)
     {
         static RGBA* red = new RGBA(255, 0, 0, 255);
-        Vector2 screenCords = WorldToScreen(entityList->aEntities[0].pos, entityList->aEntities[1].pos, refdef);
-        screenCords.Print();
-        if (screenCords.x != 0)
-        {
-            //esp
-            DrawCircle(screenCords.x, screenCords.y, 15, red, 100);
 
+        Vector3 vec3PlayerHead = entityList->aEntities[0].pos;
+        Vector3 vec3TargetHead = entityList->aEntities[1].pos;
+
+        float distance = vec3PlayerHead.Distance(vec3TargetHead);
+
+        Vector2 TargetMiddle = WorldToScreen(vec3PlayerHead, Vector3(vec3TargetHead.x, vec3TargetHead.y, vec3TargetHead.z - PlayerHeight / 2), refdef);
+        Vector2 TargetTopLeft = Vector2(TargetMiddle.x - (PlayerWidth) * distance, TargetMiddle.y + (PlayerHeight) * distance);
+        Vector2 TargetBottomRight = Vector2(TargetMiddle.x + (PlayerWidth) * distance, TargetMiddle.y - (PlayerHeight) * distance);
+
+        if (TargetMiddle.x != 0 || TargetMiddle.y != 0)
+        {
             //aimbot
             if (windowsIsFocused)
                 if (GetAsyncKeyState(VK_LBUTTON))
-                    mouse_event(MOUSEEVENTF_MOVE, screenCords.x - (refdef->width / 2), screenCords.y - (refdef->height / 2), NULL, NULL);
+                    mouse_event(MOUSEEVENTF_MOVE, TargetMiddle.x - (refdef->width / 2), TargetMiddle.y - (refdef->height / 2), NULL, NULL);
         }
     }
 
@@ -185,6 +192,12 @@ uintptr_t Thread(HMODULE hModule)
 	auto* f = new FILE;
     freopen_s(&f, "CONOUT$", "w", stdout);
 
+    HWND hwnd = FindWindowA(NULL, "Quake Live");
+    lastProcedure = (WNDPROC)SetWindowLongA(hwnd, GWLP_WNDPROC, (LONG)NewWindowProcedure);
+    ImGui::SetCurrentContext(ImGui::CreateContext());
+    ImGui_ImplWin32_Init(hwnd);
+    ImGui_ImplOpenGL2_Init();
+
     oWglSwapBuffers = (tWglSwapBuffers)GetProcAddress(GetModuleHandleA("opengl32.dll"), "wglSwapBuffers");
     x86Hook* hkWglSwapBuffers = new x86Hook(new x86Detour((BYTE*)oWglSwapBuffers, (BYTE*)WglSwapBuffers, 5));
     oWglSwapBuffers = (tWglSwapBuffers)hkWglSwapBuffers->Init();
@@ -193,14 +206,9 @@ uintptr_t Thread(HMODULE hModule)
     x86Hook hkDecrementHealth(new x86Detour((BYTE*)(oDecrementHealth), (BYTE*)(DecrementHealth), 6));
     oDecrementHealth = reinterpret_cast<tDecrementHealth>(hkDecrementHealth.Init());
 
-    HWND hwnd = FindWindowA(NULL, "Quake Live");
-    lastProcedure = (WNDPROC)SetWindowLongA(hwnd, GWLP_WNDPROC, (LONG)NewWindowProcedure);
-    ImGui::SetCurrentContext(ImGui::CreateContext());
-    ImGui_ImplWin32_Init(hwnd);
-    ImGui_ImplOpenGL2_Init();
-
     //float* velocityScaler = (float*)(qagamex86ModuleBase + 0x908F4 + 0x28);
     //int* allScaler = (int*)(qagamex86ModuleBase + 0x908F4 + 0x2C);
+    //int* numberOfBots = (int*)(qagamex86ModuleBase + 0x5E36B8);
 
     while (!GetAsyncKeyState(VK_DELETE))
     {
