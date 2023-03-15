@@ -1,6 +1,10 @@
 #include "pch.h"
-#define PlayerHeight 0.50f
-#define PlayerWidth 0.20f
+const float PLAYER_HEIGHT = 5.3f;
+const float PLAYER_WIDTH = 2.0f;
+const float EYE_HEIGHT = 4.5f;
+
+const float PLAYER_ASPECT_RATIO = PLAYER_HEIGHT / PLAYER_WIDTH;
+const int GAME_UNIT_MAGIC = 4000;
 
 struct refdef_t
 {
@@ -90,19 +94,25 @@ int __stdcall WglSwapBuffers(HDC hDC)
 
         Vector3 vec3PlayerHead = entityList->aEntities[0].pos;
         Vector3 vec3TargetHead = entityList->aEntities[1].pos;
+        Vector2 screen = WorldToScreen(vec3PlayerHead, vec3TargetHead, refdef);
 
-        float distance = vec3PlayerHead.Distance(vec3TargetHead);
-
-        Vector2 TargetMiddle = WorldToScreen(vec3PlayerHead, Vector3(vec3TargetHead.x, vec3TargetHead.y, vec3TargetHead.z - PlayerHeight / 2), refdef);
-        Vector2 TargetTopLeft = Vector2(TargetMiddle.x - (PlayerWidth) * distance, TargetMiddle.y + (PlayerHeight) * distance);
-        Vector2 TargetBottomRight = Vector2(TargetMiddle.x + (PlayerWidth) * distance, TargetMiddle.y - (PlayerHeight) * distance);
-
-        if (TargetMiddle.x != 0 || TargetMiddle.y != 0)
+        if (screen.x != 0 || screen.y != 0)
         {
+            float distance = vec3PlayerHead.Distance(vec3TargetHead);
+
+            float scale = (GAME_UNIT_MAGIC / distance) * (refdef->width / refdef->width);
+            float x = screen.x - scale;
+            float y = screen.y - scale;
+            float width = scale * 2;
+            float height = scale * PLAYER_ASPECT_RATIO * 2;
+
+            //GL::DrawOutline(x, y, width, height, 2.0f, color);
+            GL::DrawCornerBox(x, y, width, height, 2.0f, 3.0f, Vector3(255, 0 ,0));
+
             //aimbot
             if (windowsIsFocused)
                 if (GetAsyncKeyState(VK_LBUTTON))
-                    mouse_event(MOUSEEVENTF_MOVE, TargetMiddle.x - (refdef->width / 2), TargetMiddle.y - (refdef->height / 2), NULL, NULL);
+                    mouse_event(MOUSEEVENTF_MOVE, screen.x - (refdef->width / 2), screen.y - (refdef->height / 2), NULL, NULL);
         }
     }
 

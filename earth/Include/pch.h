@@ -12,3 +12,4 @@
 
 #include "x86Hook/x86Hook.h"
 #include "reclass.h"
+#include "glDraw.h"
