@@ -10,6 +10,8 @@
 #include "ImGui/imgui_impl_win32.h"
 #include "ImGui/imgui_impl_opengl2.h"
 
+#include "Feature/FeatureBase/FeatureBase.h"
+#include "Feature/FeatureManager/FeatureManager.h"
 #include "Detour-Hook/x86Detour/x86Detour.h"
 #include "Detour-Hook/x86Hook/x86Hook.h"
 #include "Game classes/reclass.h"
@@ -17,5 +19,3 @@
 #include "Opengl-Imgui/WindowProedure/WindowProcedureHook.h"
 #include "Opengl-Imgui/Opengl/OpenglHook.h"
 #include "Globals/globals.h"
-#include "Feature/FeatureBase/FeatureBase.h"
-#include "Feature/FeatureManager/FeatureManager.h"

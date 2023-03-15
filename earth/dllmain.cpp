@@ -1,5 +1,7 @@
 #include "pch.h"
 
+#include "Features/ESP/ESP.h"
+
 #if 0
 double a11; int a22; int* a33; int a44; float* a55; int a66; int a77; char a88; int a99;
 
@@ -80,8 +82,8 @@ uintptr_t Thread(HMODULE hModule)
     OpenglHook hkOpengl(hwnd);
     hkOpengl.ActiveHook();
 
-    FeatureManager featureManager;
-    //featureManager.AddFeature("Aimbot")
+    Globals::Game::featureManager.AddFeature("ESP", new ESP());
+    
     //oDecrementHealth = reinterpret_cast<tDecrementHealth>(qagamex86ModuleBase + 0x48C30);
     //x86Hook hkDecrementHealth(new x86Detour((BYTE*)(oDecrementHealth), (BYTE*)(DecrementHealth), 6));
     //oDecrementHealth = reinterpret_cast<tDecrementHealth>(hkDecrementHealth.Init());
@@ -91,6 +93,8 @@ uintptr_t Thread(HMODULE hModule)
 
     while (!GetAsyncKeyState(VK_DELETE))
     {
+        Globals::Game::featureManager.LoopAll();
+
         //if (GetAsyncKeyState(VK_DOWN) & 1 && false)
             //printf("decrement health returned: %d\n", oDecrementHealth(a11, a22, a33, a44, a55, a66, a77, a88, a99));
 

@@ -16,6 +16,8 @@ namespace Globals
 		inline refdef_t* refdef = (refdef_t*)(*(uintptr_t*)(*(uintptr_t*)(quakeliveModuleBase + 0x1316EB8) * 4 + quakeliveModuleBase + 0x1345A78) + 0xB04D8);
 		inline auto* entityList = *(EntityList**)(quakeliveModuleBase + 0x00F33774);
 		inline int* numberOfBots = (int*)(qagamex86ModuleBase + 0x5E36B8);
+
+		inline FeatureManager featureManager;
 	}
 	namespace Window
 	{
