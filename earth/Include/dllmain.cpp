@@ -111,6 +111,43 @@ int __stdcall WglSwapBuffers(HDC hDC)
             //GL::DrawOutline(x, y, width, height, 2.0f, color);
             GL::DrawCornerBox(x, y, width, height, 2.0f, 3.0f, Vector3(255, 0, 0));
         }
+
+        if (true)
+        {
+            //aimbot
+            if (GetAsyncKeyState(VK_LBUTTON))
+            {
+                size_t closestEntityIndex = 0;
+                float smallestDistance = 10000.0f;
+                Vector3 vec3PlayerHead = entityList->aEntities[0].pos;
+                for (size_t i = 1; i <= *numberOfBots; i++)
+                {
+                    float distance = vec3PlayerHead.Distance(entityList->aEntities[closestEntityIndex].pos);
+                    printf("%d - %f\n", i, distance);
+                    if (distance < smallestDistance)
+                    {
+                        smallestDistance = distance;
+                        closestEntityIndex = i;
+                    }
+                }
+                printf("%d\n", closestEntityIndex);
+                if (closestEntityIndex != 0)
+                {
+                    Vector2 screen = WorldToScreen(vec3PlayerHead, entityList->aEntities[1].pos, refdef);
+                    if (screen.x > 0)
+                        if (windowsIsFocused)
+                            mouse_event(MOUSEEVENTF_MOVE, screen.x - (refdef->width / 2), screen.y - (refdef->height / 2), NULL, NULL);
+                }
+            }
+
+            //aimbot
+            //Vector3 vec3PlayerHead = entityList->aEntities[0].pos;
+            //Vector3 vec3TargetHead = entityList->aEntities[1].pos;
+            //Vector2 screen = WorldToScreen(vec3PlayerHead, vec3TargetHead, refdef);
+            //if (windowsIsFocused)
+                //if (GetAsyncKeyState(VK_LBUTTON))
+                    //mouse_event(MOUSEEVENTF_MOVE, screen.x - (refdef->width / 2), screen.y - (refdef->height / 2), NULL, NULL);
+        }
     }
 
     ImGui::EndFrame();
@@ -231,31 +268,6 @@ uintptr_t Thread(HMODULE hModule)
             windowsIsFocused = true;
         else
             windowsIsFocused = false;
-
-        //aimbot
-        if (GetAsyncKeyState(VK_LBUTTON))
-        {
-            size_t closestEntityIndex = 0;
-            float smallestDistance = 10000.0f;
-            Vector3 vec3PlayerHead = entityList->aEntities[0].pos;
-            for (size_t i = 1; i <= *numberOfBots; i++)
-            {
-                float distance = vec3PlayerHead.Distance(entityList->aEntities[closestEntityIndex].pos);
-                if (distance < smallestDistance)
-                {
-                    smallestDistance = distance;
-                    closestEntityIndex = i;
-                }
-            }
-
-            if (closestEntityIndex != 0)
-            {
-                Vector2 screen = WorldToScreen(vec3PlayerHead, entityList->aEntities[closestEntityIndex].pos, refdef);
-                if (screen.x > 0)
-                    if (windowsIsFocused)
-                        mouse_event(MOUSEEVENTF_MOVE, screen.x - (refdef->width / 2), screen.y - (refdef->height / 2), NULL, NULL);
-            }
-        }
     }
 
     SetWindowLongA(hwnd, GWLP_WNDPROC, (LONG)lastProcedure);
