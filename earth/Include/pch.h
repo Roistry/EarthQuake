@@ -17,3 +17,5 @@
 #include "Opengl-Imgui/WindowProedure/WindowProcedureHook.h"
 #include "Opengl-Imgui/Opengl/OpenglHook.h"
 #include "Globals/globals.h"
+#include "Feature/FeatureBase/FeatureBase.h"
+#include "Feature/FeatureManager/FeatureManager.h"

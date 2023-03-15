@@ -151,6 +151,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Features\Aimbot\Aimbot.h" />
+    <ClInclude Include="Features\ESP\ESP.h" />
+    <ClInclude Include="Include\Feature\FeatureManager\FeatureManager.h" />
+    <ClInclude Include="Include\Feature\FeatureBase\FeatureBase.h" />
     <ClInclude Include="Include\Detour-Hook\x86Detour\x86Detour.h" />
     <ClInclude Include="Include\Detour-Hook\x86Hook\x86Hook.h" />
     <ClInclude Include="Include\Globals\globals.h" />
@@ -169,6 +173,10 @@
     <ClInclude Include="Include\Game classes\reclass.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Features\Aimbot\Aimbot.cpp" />
+    <ClCompile Include="Features\ESP\ESP.cpp" />
+    <ClCompile Include="Include\Feature\FeatureManager\FeatureManager.cpp" />
+    <ClCompile Include="Include\Feature\FeatureBase\FeatureBase.cpp" />
     <ClCompile Include="Include\Detour-Hook\x86Detour\x86Detour.cpp" />
     <ClCompile Include="Include\Detour-Hook\x86Hook\x86Hook.cpp" />
     <ClCompile Include="Include\Opengl-Imgui\Draw\glDraw.cpp" />

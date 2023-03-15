@@ -80,6 +80,8 @@ uintptr_t Thread(HMODULE hModule)
     OpenglHook hkOpengl(hwnd);
     hkOpengl.ActiveHook();
 
+    FeatureManager featureManager;
+    //featureManager.AddFeature("Aimbot")
     //oDecrementHealth = reinterpret_cast<tDecrementHealth>(qagamex86ModuleBase + 0x48C30);
     //x86Hook hkDecrementHealth(new x86Detour((BYTE*)(oDecrementHealth), (BYTE*)(DecrementHealth), 6));
     //oDecrementHealth = reinterpret_cast<tDecrementHealth>(hkDecrementHealth.Init());
