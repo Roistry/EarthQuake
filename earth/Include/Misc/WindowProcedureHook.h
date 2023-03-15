@@ -5,8 +5,9 @@ LRESULT CALLBACK NewWindowProcedure(HWND hwnd, UINT msg, WPARAM wideparam, LPARA
 
 class WindowProcedureHook
 {
-private:
+public:
 	HWND hwnd;
+private:
 	WNDPROC newWindowProcedure;
 public:
 	static WNDPROC previousWindowProcedure;

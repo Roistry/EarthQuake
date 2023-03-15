@@ -14,3 +14,4 @@
 #include "reclass.h"
 #include "glDraw.h"
 #include "Misc/WindowProcedureHook.h"
+#include "Misc/OpenglHook.h"

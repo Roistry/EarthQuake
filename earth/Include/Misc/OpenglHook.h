@@ -1,10 +1,17 @@
 #pragma once
+typedef int(__stdcall* tWglSwapBuffers)(HDC hDC);
+int __stdcall WglSwapBuffers(HDC hDC);
+
 class OpenglHook
 {
-public:
+private:
 	WindowProcedureHook* wndProcHook;
-	HWND hwnd;
-
-
-	OpenglHook();
+public:
+	static tWglSwapBuffers oWglSwapBuffers;
+private:
+	x86Hook* hkWglSwapBuffers;
+public:
+	OpenglHook(HWND hwnd);
+	void ActiveHook();
+	void DisableHook();
 };

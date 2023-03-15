@@ -50,15 +50,6 @@ int* numberOfBots = (int*)(qagamex86ModuleBase + 0x5E36B8);
 
 bool windowsIsFocused = false;
 bool status = true;
-#if 0
-WNDPROC lastProcedure;
-extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wideparam, LPARAM lowparam);
-LRESULT CALLBACK NewWindowProcedure(HWND hwnd, UINT msg, WPARAM wideparam, LPARAM lowparam)
-{
-    ImGui_ImplWin32_WndProcHandler(hwnd, msg, wideparam, lowparam);
-    return CallWindowProcA(lastProcedure, hwnd, msg, wideparam, lowparam);
-}
-#endif
 
 typedef int(__stdcall* tWglSwapBuffers)(HDC hDC);
 tWglSwapBuffers oWglSwapBuffers;
