@@ -1,6 +1,6 @@
 #pragma once
 typedef int(__stdcall* tWglSwapBuffers)(HDC hDC);
-int __stdcall WglSwapBuffers(HDC hDC);
+int __stdcall WglSwapBufferss(HDC hDC);
 
 class OpenglHook
 {
@@ -11,6 +11,10 @@ public:
 private:
 	x86Hook* hkWglSwapBuffers;
 public:
+	static bool contextCreated;
+	static HGLRC myContext;
+	static HGLRC gameContext;
+
 	OpenglHook(HWND hwnd);
 	void ActiveHook();
 	void DisableHook();

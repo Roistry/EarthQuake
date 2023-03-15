@@ -1,156 +1,9 @@
 #include "pch.h"
-const float PLAYER_HEIGHT = 5.3f;
-const float PLAYER_WIDTH = 2.0f;
-const float EYE_HEIGHT = 4.5f;
 
-const float PLAYER_ASPECT_RATIO = PLAYER_HEIGHT / PLAYER_WIDTH;
-const int GAME_UNIT_MAGIC = 4000;
-
-struct refdef_t
-{
-    int           x, y, width, height;
-    float         fov_x, fov_y;
-    Vector3       vieworg;
-    Vector3       viewaxis[3];
-};
-
-Vector2 WorldToScreen(Vector3 src, Vector3 dst, refdef_t* refdef)
-{
-    Vector3 transform;
-    float xc, yc;
-    float px, py;
-    float z;
-
-    px = tan(refdef->fov_x * 3.141f / 360.0);
-    py = tan(refdef->fov_y * 3.141f / 360.0);
-
-    transform = dst - src;
-
-    xc = refdef->width / 2.0;
-    yc = refdef->height / 2.0;
-
-    z = transform.DotProduct(refdef->viewaxis[0]); //left
-
-    Vector2 screenCords;
-    if (z <= 0.1)
-        return screenCords;
-
-    screenCords.x = xc - transform.DotProduct(refdef->viewaxis[1]) * xc / (z * px); //up
-    screenCords.y = yc - transform.DotProduct(refdef->viewaxis[2]) * yc / (z * py); //forward
-
-    return screenCords;
-}
-
-auto quakeliveModuleBase = (uintptr_t)GetModuleHandleW(L"quakelive_steam.exe");
-auto qagamex86ModuleBase = (uintptr_t)GetModuleHandleW(L"qagamex86.dll");
-refdef_t* refdef = (refdef_t*)(*(uintptr_t*)(*(uintptr_t*)(quakeliveModuleBase + 0x1316EB8) * 4 + quakeliveModuleBase + 0x1345A78) + 0xB04D8);
-auto* entityList = *(EntityList**)(quakeliveModuleBase + 0x00F33774);
-
-int* numberOfBots = (int*)(qagamex86ModuleBase + 0x5E36B8);
-
-bool windowsIsFocused = false;
-bool status = true;
-
-typedef int(__stdcall* tWglSwapBuffers)(HDC hDC);
-tWglSwapBuffers oWglSwapBuffers;
-bool contextCreated = true;
-HGLRC myContext;
-HGLRC gameContext;
-int __stdcall WglSwapBuffers(HDC hDC)
-{
-    gameContext = wglGetCurrentContext();
-    if (contextCreated)
-    {
-        //Create new context
-        myContext = wglCreateContext(hDC);
-
-        //Make thread use our context
-        wglMakeCurrent(hDC, myContext);
-
-        //Setup our context
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        glOrtho(0.0, refdef->width, refdef->height, 0.0, 1.0, -1.0);
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
-        glClearColor(0, 0, 0, 1.0);
-        contextCreated = false;
-    }
-
-    wglMakeCurrent(hDC, myContext);
-
-    ImGui_ImplWin32_NewFrame();
-    ImGui_ImplOpenGL2_NewFrame();
-    ImGui::NewFrame();
-
-    if (status)
-    {
-        static RGBA* red = new RGBA(255, 0, 0, 255);
-
-        for (size_t i = 1; i <= *numberOfBots; i++)
-        {
-            Vector3 vec3PlayerHead = entityList->aEntities[0].pos;
-            Vector3 vec3TargetHead = entityList->aEntities[i].pos;
-            Vector2 screen = WorldToScreen(vec3PlayerHead, vec3TargetHead, refdef);
-
-            float distance = vec3PlayerHead.Distance(vec3TargetHead);
-
-            float scale = (GAME_UNIT_MAGIC / distance) * (refdef->width / refdef->width);
-            float x = screen.x - scale;
-            float y = screen.y - scale;
-            float width = scale * 2;
-            float height = scale * PLAYER_ASPECT_RATIO * 2;
-
-            //GL::DrawOutline(x, y, width, height, 2.0f, color);
-            GL::DrawCornerBox(x, y, width, height, 2.0f, 3.0f, Vector3(255, 0, 0));
-        }
-
-        //get closest entity
-        size_t closestEntityIndex = 0;
-        float smallestDistance = 10000.0f;
-        for (size_t i = 1; i <= *numberOfBots; i++)
-        {
-            if (entityList->aEntities[i].health <= 0)
-                continue;
-            float distance = entityList->aEntities[0].pos.Distance(entityList->aEntities[i].pos);
-            if (distance < smallestDistance)
-            {
-                smallestDistance = distance;
-                closestEntityIndex = i;
-            }
-        }
-
-        //aimbot
-        if (GetAsyncKeyState(VK_LBUTTON))
-        {
-            if (closestEntityIndex != 0)
-            {
-                Vector2 screen = WorldToScreen(entityList->aEntities[0].pos, entityList->aEntities[closestEntityIndex].pos, refdef);
-                if (screen.x > 0)
-                    if (windowsIsFocused)
-                        mouse_event(MOUSEEVENTF_MOVE, screen.x - (refdef->width / 2), screen.y - (refdef->height / 2), NULL, NULL);
-            }
-        }
-
-        ImGui::Begin("Menu", &status);
-        ImGui::End();
-    }
-
-    ImGui::EndFrame();
-    ImGui::Render();
-    ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
-
-    wglMakeCurrent(hDC, gameContext);
-
-    if (GetAsyncKeyState(VK_F9) & 1)
-        status = !status;
-
-    return oWglSwapBuffers(hDC);
-}
-
+#if 0
 double a11; int a22; int* a33; int a44; float* a55; int a66; int a77; char a88; int a99;
 
-std::vector<uintptr_t> entities;
+//std::vector<uintptr_t> entities;
 
 typedef int(__cdecl* tDecrementHealth)(double a1, int a2, int* a3, int a4, float* a5, int a6, int a7, char a8, int a9);
 tDecrementHealth oDecrementHealth;
@@ -215,6 +68,7 @@ int __cdecl DecrementHealth(double a1, int a2, int* a3, int a4, float* a5, int a
     //printf("a1: %lf, a2: %d, a3: %p, a4: %d, a5: %p, a6: %d, a7: %d, a8: %c, a9: %d\n", a1, a2, a3, a4, a5, a6, a7, a8, a9);
     return oDecrementHealth(a1, a2, a3, a4, a5, a6, a7, a8, a9);
 }
+#endif
 
 uintptr_t Thread(HMODULE hModule)
 {
@@ -223,48 +77,34 @@ uintptr_t Thread(HMODULE hModule)
     freopen_s(&f, "CONOUT$", "w", stdout);
 
     HWND hwnd = FindWindowA(NULL, "Quake Live");
-    WindowProcedureHook windowProcedureHook(hwnd);
-    //lastProcedure = (WNDPROC)SetWindowLongA(hwnd, GWLP_WNDPROC, (LONG)NewWindowProcedure);
-    windowProcedureHook.SetNewWindowProcedure();
-    ImGui::SetCurrentContext(ImGui::CreateContext());
-    ImGui_ImplWin32_Init(hwnd);
-    ImGui_ImplOpenGL2_Init();
+    OpenglHook hkOpengl(hwnd);
+    hkOpengl.ActiveHook();
 
-    oWglSwapBuffers = (tWglSwapBuffers)GetProcAddress(GetModuleHandleA("opengl32.dll"), "wglSwapBuffers");
-    x86Hook* hkWglSwapBuffers = new x86Hook(new x86Detour((BYTE*)oWglSwapBuffers, (BYTE*)WglSwapBuffers, 5));
-    oWglSwapBuffers = (tWglSwapBuffers)hkWglSwapBuffers->Init();
-
-    oDecrementHealth = reinterpret_cast<tDecrementHealth>(qagamex86ModuleBase + 0x48C30);
-    x86Hook hkDecrementHealth(new x86Detour((BYTE*)(oDecrementHealth), (BYTE*)(DecrementHealth), 6));
-    oDecrementHealth = reinterpret_cast<tDecrementHealth>(hkDecrementHealth.Init());
+    //oDecrementHealth = reinterpret_cast<tDecrementHealth>(qagamex86ModuleBase + 0x48C30);
+    //x86Hook hkDecrementHealth(new x86Detour((BYTE*)(oDecrementHealth), (BYTE*)(DecrementHealth), 6));
+    //oDecrementHealth = reinterpret_cast<tDecrementHealth>(hkDecrementHealth.Init());
 
     //float* velocityScaler = (float*)(qagamex86ModuleBase + 0x908F4 + 0x28);
     //int* allScaler = (int*)(qagamex86ModuleBase + 0x908F4 + 0x2C);
 
     while (!GetAsyncKeyState(VK_DELETE))
     {
-        if (GetAsyncKeyState(VK_DOWN) & 1 && false)
-            printf("decrement health returned: %d\n", oDecrementHealth(a11, a22, a33, a44, a55, a66, a77, a88, a99));
+        //if (GetAsyncKeyState(VK_DOWN) & 1 && false)
+            //printf("decrement health returned: %d\n", oDecrementHealth(a11, a22, a33, a44, a55, a66, a77, a88, a99));
 
-        if (GetAsyncKeyState(VK_UP) & 1)
-        {
-            for (size_t i = 0; i < entities.size(); i++)
-                printf("entity %d: %p\n", i, entities[i]);
-        }
+        //if (GetAsyncKeyState(VK_UP) & 1)
+        //{
+            //for (size_t i = 0; i < entities.size(); i++)
+                //printf("entity %d: %p\n", i, entities[i]);
+        //}
 
         if (GetForegroundWindow() == hwnd)
-            windowsIsFocused = true;
+            Globals::Window::windowsIsFocused = true;
         else
-            windowsIsFocused = false;
+            Globals::Window::windowsIsFocused = false;
     }
 
-    //SetWindowLongA(hwnd, GWLP_WNDPROC, (LONG)lastProcedure);
-    windowProcedureHook.SetPreviousWindowProcedure();
-    hkWglSwapBuffers->UnInit();
-    hkDecrementHealth.UnInit();
-    ImGui_ImplWin32_Shutdown();
-    ImGui_ImplOpenGL2_Shutdown();
-    ImGui::DestroyContext();
+    hkOpengl.DisableHook();
 
     FreeConsole();
     fclose(f);

@@ -1,7 +1,4 @@
 #pragma once
-#include <Windows.h>
-#include <cstdint>
-#include <iostream>
 
 class x86Detour
 {

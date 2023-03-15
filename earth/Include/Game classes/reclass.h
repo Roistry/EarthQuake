@@ -170,3 +170,39 @@ public:
 	class Entity aEntities[32]; //0x0000
 	char pad_4A060[5264]; //0x4A060
 }; //Size: 0x4B4F0
+
+class refdef_t
+{
+public:
+	int            x, y, width, height;
+	float          fov_x, fov_y;
+	Vector3        vieworg;
+	Vector3        viewaxis[3];
+
+	Vector2 WorldToScreen(Vector3 src, Vector3 dst)
+	{
+		Vector3 transform;
+		float xc, yc;
+		float px, py;
+		float z;
+
+		px = tan(this->fov_x * 3.141f / 360.0);
+		py = tan(this->fov_y * 3.141f / 360.0);
+
+		transform = dst - src;
+
+		xc = this->width / 2.0;
+		yc = this->height / 2.0;
+
+		z = transform.DotProduct(this->viewaxis[0]);
+
+		Vector2 screenCords;
+		if (z <= 0.1)
+			return screenCords;
+
+		screenCords.x = xc - transform.DotProduct(this->viewaxis[1]) * xc / (z * px);
+		screenCords.y = yc - transform.DotProduct(this->viewaxis[2]) * yc / (z * py);
+
+		return screenCords;
+	}
+};

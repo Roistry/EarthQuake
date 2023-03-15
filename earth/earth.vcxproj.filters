@@ -18,13 +18,7 @@
     <ClInclude Include="Include\pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\reclass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\x86Hook\x86Hook.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\x86Detour\x86Detour.h">
+    <ClInclude Include="Include\Game classes\reclass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\ImGui\imconfig.h">
@@ -51,13 +45,19 @@
     <ClInclude Include="Include\ImGui\imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Misc\OpenglHook.h">
+    <ClInclude Include="Include\Opengl-Imgui\Draw\glDraw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Misc\WindowProcedureHook.h">
+    <ClInclude Include="Include\Opengl-Imgui\Opengl\OpenglHook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\glDraw.h">
+    <ClInclude Include="Include\Opengl-Imgui\WindowProedure\WindowProcedureHook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Detour-Hook\x86Detour\x86Detour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Detour-Hook\x86Hook\x86Hook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -66,12 +66,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Include\pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Include\x86Hook\x86Hook.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Include\x86Detour\x86Detour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Include\ImGui\imgui.cpp">
@@ -95,13 +89,19 @@
     <ClCompile Include="Include\ImGui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Include\Misc\OpenglHook.cpp">
+    <ClCompile Include="Include\Opengl-Imgui\Draw\glDraw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Include\Misc\WindowProcedureHook.cpp">
+    <ClCompile Include="Include\Opengl-Imgui\Opengl\OpenglHook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Include\glDraw.cpp">
+    <ClCompile Include="Include\Opengl-Imgui\WindowProedure\WindowProcedureHook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Detour-Hook\x86Detour\x86Detour.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Detour-Hook\x86Hook\x86Hook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

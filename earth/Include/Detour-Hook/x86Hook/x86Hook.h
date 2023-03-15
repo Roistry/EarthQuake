@@ -1,9 +1,4 @@
 #pragma once
-#include <Windows.h>
-#include <cstdint>
-#include <iostream>
-
-#include "../x86Detour/x86Detour.h"
 
 class x86Hook
 {

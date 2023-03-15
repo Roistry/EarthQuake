@@ -1,12 +1,13 @@
 #pragma once
+
 // TODO: REFACTOR ME
 namespace RGB {
-	inline Vector3 red = { 255, 0, 0 };
-	inline Vector3 green = { 0, 255, 0 };
-	inline Vector3 gray = { 55, 55, 55 };
-	inline Vector3 lightgray = { 192, 192, 192 };
-	inline Vector3 black = { 0, 0, 0 };
-	inline Vector3 white = { 255, 255, 255 };
+	inline Vector3 red(255, 0, 0);
+	inline Vector3 green(0, 255, 0);
+	inline Vector3 gray(55, 55, 55);
+	inline Vector3 lightgray(192, 192, 192);
+	inline Vector3 black(0, 0, 0);
+	inline Vector3 white(255, 255, 255);
 }
 
 namespace GL {

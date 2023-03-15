@@ -151,7 +151,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Include\glDraw.h" />
+    <ClInclude Include="Include\Detour-Hook\x86Detour\x86Detour.h" />
+    <ClInclude Include="Include\Detour-Hook\x86Hook\x86Hook.h" />
+    <ClInclude Include="Include\Globals\globals.h" />
+    <ClInclude Include="Include\Opengl-Imgui\Draw\glDraw.h" />
     <ClInclude Include="Include\ImGui\imconfig.h" />
     <ClInclude Include="Include\ImGui\imgui.h" />
     <ClInclude Include="Include\ImGui\imgui_impl_opengl2.h" />
@@ -160,15 +163,15 @@
     <ClInclude Include="Include\ImGui\imstb_rectpack.h" />
     <ClInclude Include="Include\ImGui\imstb_textedit.h" />
     <ClInclude Include="Include\ImGui\imstb_truetype.h" />
-    <ClInclude Include="Include\Misc\OpenglHook.h" />
+    <ClInclude Include="Include\Opengl-Imgui\Opengl\OpenglHook.h" />
+    <ClInclude Include="Include\Opengl-Imgui\WindowProedure\WindowProcedureHook.h" />
     <ClInclude Include="Include\pch.h" />
-    <ClInclude Include="Include\reclass.h" />
-    <ClInclude Include="Include\Misc\WindowProcedureHook.h" />
-    <ClInclude Include="Include\x86Detour\x86Detour.h" />
-    <ClInclude Include="Include\x86Hook\x86Hook.h" />
+    <ClInclude Include="Include\Game classes\reclass.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Include\glDraw.cpp" />
+    <ClCompile Include="Include\Detour-Hook\x86Detour\x86Detour.cpp" />
+    <ClCompile Include="Include\Detour-Hook\x86Hook\x86Hook.cpp" />
+    <ClCompile Include="Include\Opengl-Imgui\Draw\glDraw.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Include\ImGui\imgui.cpp" />
     <ClCompile Include="Include\ImGui\imgui_demo.cpp" />
@@ -177,16 +180,14 @@
     <ClCompile Include="Include\ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="Include\ImGui\imgui_tables.cpp" />
     <ClCompile Include="Include\ImGui\imgui_widgets.cpp" />
-    <ClCompile Include="Include\Misc\OpenglHook.cpp" />
+    <ClCompile Include="Include\Opengl-Imgui\Opengl\OpenglHook.cpp" />
+    <ClCompile Include="Include\Opengl-Imgui\WindowProedure\WindowProcedureHook.cpp" />
     <ClCompile Include="Include\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Include\Misc\WindowProcedureHook.cpp" />
-    <ClCompile Include="Include\x86Detour\x86Detour.cpp" />
-    <ClCompile Include="Include\x86Hook\x86Hook.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
