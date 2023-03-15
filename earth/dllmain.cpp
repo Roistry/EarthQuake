@@ -50,6 +50,7 @@ int* numberOfBots = (int*)(qagamex86ModuleBase + 0x5E36B8);
 
 bool windowsIsFocused = false;
 bool status = true;
+#if 0
 WNDPROC lastProcedure;
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wideparam, LPARAM lowparam);
 LRESULT CALLBACK NewWindowProcedure(HWND hwnd, UINT msg, WPARAM wideparam, LPARAM lowparam)
@@ -57,6 +58,7 @@ LRESULT CALLBACK NewWindowProcedure(HWND hwnd, UINT msg, WPARAM wideparam, LPARA
     ImGui_ImplWin32_WndProcHandler(hwnd, msg, wideparam, lowparam);
     return CallWindowProcA(lastProcedure, hwnd, msg, wideparam, lowparam);
 }
+#endif
 
 typedef int(__stdcall* tWglSwapBuffers)(HDC hDC);
 tWglSwapBuffers oWglSwapBuffers;
@@ -115,27 +117,32 @@ int __stdcall WglSwapBuffers(HDC hDC)
         //get closest entity
         size_t closestEntityIndex = 0;
         float smallestDistance = 10000.0f;
-        Vector3 vec3PlayerHead = entityList->aEntities[0].pos;
         for (size_t i = 1; i <= *numberOfBots; i++)
         {
-            float distance = vec3PlayerHead.Distance(entityList->aEntities[i].pos);
+            if (entityList->aEntities[i].health <= 0)
+                continue;
+            float distance = entityList->aEntities[0].pos.Distance(entityList->aEntities[i].pos);
             if (distance < smallestDistance)
             {
                 smallestDistance = distance;
                 closestEntityIndex = i;
             }
         }
+
         //aimbot
         if (GetAsyncKeyState(VK_LBUTTON))
         {
             if (closestEntityIndex != 0)
             {
-                Vector2 screen = WorldToScreen(vec3PlayerHead, entityList->aEntities[closestEntityIndex].pos, refdef);
+                Vector2 screen = WorldToScreen(entityList->aEntities[0].pos, entityList->aEntities[closestEntityIndex].pos, refdef);
                 if (screen.x > 0)
                     if (windowsIsFocused)
                         mouse_event(MOUSEEVENTF_MOVE, screen.x - (refdef->width / 2), screen.y - (refdef->height / 2), NULL, NULL);
             }
         }
+
+        ImGui::Begin("Menu", &status);
+        ImGui::End();
     }
 
     ImGui::EndFrame();
@@ -225,7 +232,9 @@ uintptr_t Thread(HMODULE hModule)
     freopen_s(&f, "CONOUT$", "w", stdout);
 
     HWND hwnd = FindWindowA(NULL, "Quake Live");
-    lastProcedure = (WNDPROC)SetWindowLongA(hwnd, GWLP_WNDPROC, (LONG)NewWindowProcedure);
+    WindowProcedureHook windowProcedureHook(hwnd);
+    //lastProcedure = (WNDPROC)SetWindowLongA(hwnd, GWLP_WNDPROC, (LONG)NewWindowProcedure);
+    windowProcedureHook.SetNewWindowProcedure();
     ImGui::SetCurrentContext(ImGui::CreateContext());
     ImGui_ImplWin32_Init(hwnd);
     ImGui_ImplOpenGL2_Init();
@@ -258,7 +267,8 @@ uintptr_t Thread(HMODULE hModule)
             windowsIsFocused = false;
     }
 
-    SetWindowLongA(hwnd, GWLP_WNDPROC, (LONG)lastProcedure);
+    //SetWindowLongA(hwnd, GWLP_WNDPROC, (LONG)lastProcedure);
+    windowProcedureHook.SetPreviousWindowProcedure();
     hkWglSwapBuffers->UnInit();
     hkDecrementHealth.UnInit();
     ImGui_ImplWin32_Shutdown();
