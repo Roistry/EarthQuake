@@ -46,6 +46,8 @@ auto qagamex86ModuleBase = (uintptr_t)GetModuleHandleW(L"qagamex86.dll");
 refdef_t* refdef = (refdef_t*)(*(uintptr_t*)(*(uintptr_t*)(quakeliveModuleBase + 0x1316EB8) * 4 + quakeliveModuleBase + 0x1345A78) + 0xB04D8);
 auto* entityList = *(EntityList**)(quakeliveModuleBase + 0x00F33774);
 
+int* numberOfBots = (int*)(qagamex86ModuleBase + 0x5E36B8);
+
 bool windowsIsFocused = false;
 bool status = true;
 WNDPROC lastProcedure;
@@ -92,12 +94,12 @@ int __stdcall WglSwapBuffers(HDC hDC)
     {
         static RGBA* red = new RGBA(255, 0, 0, 255);
 
-        Vector3 vec3PlayerHead = entityList->aEntities[0].pos;
-        Vector3 vec3TargetHead = entityList->aEntities[1].pos;
-        Vector2 screen = WorldToScreen(vec3PlayerHead, vec3TargetHead, refdef);
-
-        if (screen.x != 0 || screen.y != 0)
+        for (size_t i = 1; i <= *numberOfBots; i++)
         {
+            Vector3 vec3PlayerHead = entityList->aEntities[0].pos;
+            Vector3 vec3TargetHead = entityList->aEntities[i].pos;
+            Vector2 screen = WorldToScreen(vec3PlayerHead, vec3TargetHead, refdef);
+
             float distance = vec3PlayerHead.Distance(vec3TargetHead);
 
             float scale = (GAME_UNIT_MAGIC / distance) * (refdef->width / refdef->width);
@@ -107,12 +109,7 @@ int __stdcall WglSwapBuffers(HDC hDC)
             float height = scale * PLAYER_ASPECT_RATIO * 2;
 
             //GL::DrawOutline(x, y, width, height, 2.0f, color);
-            GL::DrawCornerBox(x, y, width, height, 2.0f, 3.0f, Vector3(255, 0 ,0));
-
-            //aimbot
-            if (windowsIsFocused)
-                if (GetAsyncKeyState(VK_LBUTTON))
-                    mouse_event(MOUSEEVENTF_MOVE, screen.x - (refdef->width / 2), screen.y - (refdef->height / 2), NULL, NULL);
+            GL::DrawCornerBox(x, y, width, height, 2.0f, 3.0f, Vector3(255, 0, 0));
         }
     }
 
@@ -218,7 +215,6 @@ uintptr_t Thread(HMODULE hModule)
 
     //float* velocityScaler = (float*)(qagamex86ModuleBase + 0x908F4 + 0x28);
     //int* allScaler = (int*)(qagamex86ModuleBase + 0x908F4 + 0x2C);
-    //int* numberOfBots = (int*)(qagamex86ModuleBase + 0x5E36B8);
 
     while (!GetAsyncKeyState(VK_DELETE))
     {
@@ -235,6 +231,31 @@ uintptr_t Thread(HMODULE hModule)
             windowsIsFocused = true;
         else
             windowsIsFocused = false;
+
+        //aimbot
+        if (GetAsyncKeyState(VK_LBUTTON))
+        {
+            size_t closestEntityIndex = 0;
+            float smallestDistance = 10000.0f;
+            Vector3 vec3PlayerHead = entityList->aEntities[0].pos;
+            for (size_t i = 1; i <= *numberOfBots; i++)
+            {
+                float distance = vec3PlayerHead.Distance(entityList->aEntities[closestEntityIndex].pos);
+                if (distance < smallestDistance)
+                {
+                    smallestDistance = distance;
+                    closestEntityIndex = i;
+                }
+            }
+
+            if (closestEntityIndex != 0)
+            {
+                Vector2 screen = WorldToScreen(vec3PlayerHead, entityList->aEntities[closestEntityIndex].pos, refdef);
+                if (screen.x > 0)
+                    if (windowsIsFocused)
+                        mouse_event(MOUSEEVENTF_MOVE, screen.x - (refdef->width / 2), screen.y - (refdef->height / 2), NULL, NULL);
+            }
+        }
     }
 
     SetWindowLongA(hwnd, GWLP_WNDPROC, (LONG)lastProcedure);
