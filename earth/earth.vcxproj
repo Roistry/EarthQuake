@@ -169,7 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Include\glDraw.cpp" />
-    <ClCompile Include="Include\dllmain.cpp" />
+    <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Include\ImGui\imgui.cpp" />
     <ClCompile Include="Include\ImGui\imgui_demo.cpp" />
     <ClCompile Include="Include\ImGui\imgui_draw.cpp" />
