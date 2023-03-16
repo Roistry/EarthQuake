@@ -13,14 +13,20 @@ namespace Globals
 
 		inline auto quakeliveModuleBase = (uintptr_t)GetModuleHandleW(L"quakelive_steam.exe");
 		inline auto qagamex86ModuleBase = (uintptr_t)GetModuleHandleW(L"qagamex86.dll");
+		inline auto cgamex86ModuleBase = (uintptr_t)GetModuleHandleW(L"cgamex86.dll");
 		inline refdef_t* refdef = (refdef_t*)(*(uintptr_t*)(*(uintptr_t*)(quakeliveModuleBase + 0x1316EB8) * 4 + quakeliveModuleBase + 0x1345A78) + 0xB04D8);
 		inline auto* entityList = *(EntityList**)(quakeliveModuleBase + 0x00F33774);
 		inline int* numberOfBots = (int*)(qagamex86ModuleBase + 0x5E36B8);
+		inline bool* isGamePaused = (bool*)(quakeliveModuleBase + 0x10410FC);
 
 		inline FeatureManager featureManager;
 	}
 	namespace Window
 	{
 		inline bool windowsIsFocused = false;
+	}
+	namespace glColors
+	{
+		Vector3 red(255, 0, 0);
 	}
 }

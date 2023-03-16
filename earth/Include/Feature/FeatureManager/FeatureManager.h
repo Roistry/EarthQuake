@@ -16,4 +16,5 @@ public:
 	void RenderAll();
 
 	void RemoveFeature(const char* identifier);
+	void RemoveAll();
 };

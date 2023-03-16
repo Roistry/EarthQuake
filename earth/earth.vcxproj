@@ -171,6 +171,7 @@
     <ClInclude Include="Include\Opengl-Imgui\WindowProedure\WindowProcedureHook.h" />
     <ClInclude Include="Include\pch.h" />
     <ClInclude Include="Include\Game classes\reclass.h" />
+    <ClInclude Include="Features\Traceline\Traceline.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Features\Aimbot\Aimbot.cpp" />
@@ -196,6 +197,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Features\Traceline\Traceline.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

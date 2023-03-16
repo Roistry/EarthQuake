@@ -2,23 +2,23 @@
 #include "OpenglHook.h"
 
 tWglSwapBuffers OpenglHook::oWglSwapBuffers;
-bool OpenglHook::contextCreated;
-HGLRC OpenglHook::myContext;
-HGLRC OpenglHook::gameContext;
+bool GL::contextCreated;
+HGLRC GL::myContext;
+HGLRC GL::gameContext;
 
 int __stdcall WglSwapBufferss(HDC hDC)
 {
 	//Opengl start frame
 	{
 		//Get current game context
-		OpenglHook::gameContext = wglGetCurrentContext();
-		if (OpenglHook::contextCreated)
+		GL::gameContext = wglGetCurrentContext();
+		if (GL::contextCreated)
 		{
 			//Create new context
-			OpenglHook::myContext = wglCreateContext(hDC);
+			GL::myContext = wglCreateContext(hDC);
 
 			//Make thread use our context
-			wglMakeCurrent(hDC, OpenglHook::myContext);
+			wglMakeCurrent(hDC, GL::myContext);
 
 			//Setup our context
 			glMatrixMode(GL_PROJECTION);
@@ -27,10 +27,10 @@ int __stdcall WglSwapBufferss(HDC hDC)
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
 			glClearColor(0, 0, 0, 1.0);
-			OpenglHook::contextCreated = false;
+			GL::contextCreated = false;
 		}
 
-		wglMakeCurrent(hDC, OpenglHook::myContext);
+		wglMakeCurrent(hDC, GL::myContext);
 	}
 	//Imgui start frame
 	{
@@ -78,7 +78,7 @@ int __stdcall WglSwapBufferss(HDC hDC)
 	}
 	//Opengl end frame
 	{
-		wglMakeCurrent(hDC, OpenglHook::gameContext);
+		wglMakeCurrent(hDC, GL::gameContext);
 	}
 
     return OpenglHook::oWglSwapBuffers(hDC);
@@ -89,7 +89,7 @@ OpenglHook::OpenglHook(HWND hwnd)
 	this->wndProcHook = new WindowProcedureHook(hwnd);
 	OpenglHook::oWglSwapBuffers = (tWglSwapBuffers)GetProcAddress(GetModuleHandleA("opengl32.dll"), "wglSwapBuffers");
 	this->hkWglSwapBuffers = new x86Hook(new x86Detour((BYTE*)OpenglHook::oWglSwapBuffers, (BYTE*)WglSwapBufferss, 5));
-	OpenglHook::contextCreated = true;
+	GL::contextCreated = true;
 }
 
 void OpenglHook::ActiveHook()

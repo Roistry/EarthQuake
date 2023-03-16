@@ -60,6 +60,24 @@
     <ClInclude Include="Include\Detour-Hook\x86Hook\x86Hook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Features\Aimbot\Aimbot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Features\ESP\ESP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Feature\FeatureManager\FeatureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Feature\FeatureBase\FeatureBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Globals\globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Features\Traceline\Traceline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -102,6 +120,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Include\Detour-Hook\x86Hook\x86Hook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Features\Aimbot\Aimbot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Features\ESP\ESP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Feature\FeatureManager\FeatureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Feature\FeatureBase\FeatureBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Features\Traceline\Traceline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

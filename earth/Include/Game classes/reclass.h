@@ -206,3 +206,12 @@ public:
 		return screenCords;
 	}
 };
+
+struct trace_t
+{
+	void* brush;
+	void* face;
+	void* terraface;
+	float dist;
+	bool selected;
+};

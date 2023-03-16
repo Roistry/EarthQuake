@@ -44,3 +44,9 @@ void FeatureManager::RemoveFeature(const char* identifier)
 	this->features[this->FindFeature(identifier)].second->OnUnInit();
 	this->features.erase(this->features.begin() + this->FindFeature(identifier));
 }
+
+void FeatureManager::RemoveAll()
+{
+	for (size_t i = 0; i < this->features.size(); i++)
+		this->features.erase(this->features.begin() + i);
+}

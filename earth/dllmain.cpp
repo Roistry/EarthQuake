@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include "Features/ESP/ESP.h"
+#include "Features/Traceline/Traceline.h"
 
 #if 0
 double a11; int a22; int* a33; int a44; float* a55; int a66; int a77; char a88; int a99;

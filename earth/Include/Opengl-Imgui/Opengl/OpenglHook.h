@@ -11,10 +11,6 @@ public:
 private:
 	x86Hook* hkWglSwapBuffers;
 public:
-	static bool contextCreated;
-	static HGLRC myContext;
-	static HGLRC gameContext;
-
 	OpenglHook(HWND hwnd);
 	void ActiveHook();
 	void DisableHook();
