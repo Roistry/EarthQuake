@@ -12,9 +12,9 @@ extern bool IsVisible(Entity target)
 	start[2] = *(float*)(Globals::Game::cgamex86ModuleBase + 0xA9C840);
 
 	float end[3];
-	end[0] = Globals::Game::entityList->aEntities[1].pos.x;
-	end[1] = Globals::Game::entityList->aEntities[1].pos.y;
-	end[2] = Globals::Game::entityList->aEntities[1].pos.z;
+	end[0] = target.pos.x;
+	end[1] = target.pos.y;
+	end[2] = target.pos.z;
 
 	oCG_Trace(traceResult,
 		(int)start,

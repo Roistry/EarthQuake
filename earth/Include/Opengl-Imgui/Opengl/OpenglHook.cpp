@@ -47,7 +47,7 @@ int __stdcall WglSwapBufferss(HDC hDC)
 	float smallestDistance = 10000.0f;
 	for (size_t i = 1; i <= *Globals::Game::numberOfBots; i++)
 	{
-		if (Globals::Game::entityList->aEntities[i].health <= 0 || IsVisible(Globals::Game::entityList->aEntities[i]))
+		if (Globals::Game::entityList->aEntities[i].health <= 0 || !IsVisible(Globals::Game::entityList->aEntities[i]))
 			continue;
 		float distance = Globals::Game::entityList->aEntities[0].pos.Distance(Globals::Game::entityList->aEntities[i].pos);
 		if (distance < smallestDistance)
