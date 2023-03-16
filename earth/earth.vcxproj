@@ -158,6 +158,7 @@
     <ClInclude Include="Include\Detour-Hook\x86Detour\x86Detour.h" />
     <ClInclude Include="Include\Detour-Hook\x86Hook\x86Hook.h" />
     <ClInclude Include="Include\Game classes\SDK.h" />
+    <ClInclude Include="Include\Game classes\traceline.h" />
     <ClInclude Include="Include\Game classes\utils.h" />
     <ClInclude Include="Include\Globals\globals.h" />
     <ClInclude Include="Include\Opengl-Imgui\Draw\glDraw.h" />
@@ -181,6 +182,7 @@
     <ClCompile Include="Include\Feature\FeatureBase\FeatureBase.cpp" />
     <ClCompile Include="Include\Detour-Hook\x86Detour\x86Detour.cpp" />
     <ClCompile Include="Include\Detour-Hook\x86Hook\x86Hook.cpp" />
+    <ClCompile Include="Include\Game classes\traceline.cpp" />
     <ClCompile Include="Include\Opengl-Imgui\Draw\glDraw.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Include\ImGui\imgui.cpp" />

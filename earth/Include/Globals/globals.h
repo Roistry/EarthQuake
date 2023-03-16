@@ -20,8 +20,6 @@ namespace Globals
 		inline bool* isGamePaused = (bool*)(quakeliveModuleBase + 0x10410FC);
 
 		inline FeatureManager featureManager;
-
-		inline bool visible[64];
 	}
 	namespace Window
 	{

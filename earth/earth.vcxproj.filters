@@ -81,6 +81,9 @@
     <ClInclude Include="Include\Game classes\utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Game classes\traceline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -135,6 +138,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Include\Feature\FeatureBase\FeatureBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Game classes\traceline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

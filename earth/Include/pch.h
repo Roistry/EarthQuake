@@ -17,11 +17,13 @@
 #include "Detour-Hook/x86Hook/x86Hook.h"
 
 #include "Game classes/utils.h"
-#include "Game classes/reclass.h"
 #include "Game classes/SDK.h"
+#include "Game classes/reclass.h"
+
+#include "Globals/globals.h"
+
+#include "Game classes/traceline.h"
 
 #include "Opengl-Imgui/Draw/glDraw.h"
 #include "Opengl-Imgui/WindowProedure/WindowProcedureHook.h"
 #include "Opengl-Imgui/Opengl/OpenglHook.h"
-
-#include "Globals/globals.h"
