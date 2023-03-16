@@ -27,6 +27,6 @@ namespace Globals
 	}
 	namespace glColors
 	{
-		Vector3 red(255, 0, 0);
+		inline Vector3 red(255, 0, 0);
 	}
 }

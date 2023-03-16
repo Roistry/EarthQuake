@@ -84,6 +84,7 @@ uintptr_t Thread(HMODULE hModule)
     hkOpengl.ActiveHook();
 
     Globals::Game::featureManager.AddFeature("ESP", new ESP());
+    Globals::Game::featureManager.AddFeature("Traceline", new Traceline());
     
     //oDecrementHealth = reinterpret_cast<tDecrementHealth>(qagamex86ModuleBase + 0x48C30);
     //x86Hook hkDecrementHealth(new x86Detour((BYTE*)(oDecrementHealth), (BYTE*)(DecrementHealth), 6));
