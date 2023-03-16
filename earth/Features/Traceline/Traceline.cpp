@@ -5,6 +5,11 @@ tCG_Trace Traceline::oCG_Trace;
 
 void Traceline::OnInit()
 {
+
+}
+
+void Traceline::OnLoop()
+{
 	Traceline::oCG_Trace = (tCG_Trace)(Globals::Game::cgamex86ModuleBase + 0x44040);
 	int traceResult[14];
 	float start[3];
@@ -26,13 +31,9 @@ void Traceline::OnInit()
 		0,
 		MASK_SOLID);
 
+	system("cls");
 	for (size_t i = 0; i < 14; i++)
 		printf("traceResult[%d]: %x\n", i, traceResult[i]);
-}
-
-void Traceline::OnLoop()
-{
-
 }
 
 void Traceline::OnUnInit()
