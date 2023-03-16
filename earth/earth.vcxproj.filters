@@ -75,9 +75,6 @@
     <ClInclude Include="Include\Globals\globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Features\Traceline\Traceline.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Game classes\SDK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -138,9 +135,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Include\Feature\FeatureBase\FeatureBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Features\Traceline\Traceline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

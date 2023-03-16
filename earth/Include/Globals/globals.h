@@ -20,6 +20,8 @@ namespace Globals
 		inline bool* isGamePaused = (bool*)(quakeliveModuleBase + 0x10410FC);
 
 		inline FeatureManager featureManager;
+
+		inline bool visible[64];
 	}
 	namespace Window
 	{
@@ -28,5 +30,6 @@ namespace Globals
 	namespace glColors
 	{
 		inline Vector3 red(255, 0, 0);
+		inline Vector3 green(0, 255, 0);
 	}
 }

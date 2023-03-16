@@ -33,6 +33,6 @@ void ESP::OnRender()
 		float height = scale * Globals::Game::PLAYER_ASPECT_RATIO * 2;
 
 		//GL::DrawOutline(x, y, width, height, 2.0f, color);
-		GL::DrawCornerBox(x, y, width, height, 2.0f, 3.0f, Globals::glColors::red);
+		GL::DrawCornerBox(x, y, width, height, 2.0f, 3.0f, Globals::Game::temp ? Globals::glColors::green : Globals::glColors::red);
 	}
 }
