@@ -157,6 +157,8 @@
     <ClInclude Include="Include\Feature\FeatureBase\FeatureBase.h" />
     <ClInclude Include="Include\Detour-Hook\x86Detour\x86Detour.h" />
     <ClInclude Include="Include\Detour-Hook\x86Hook\x86Hook.h" />
+    <ClInclude Include="Include\Game classes\SDK.h" />
+    <ClInclude Include="Include\Game classes\utils.h" />
     <ClInclude Include="Include\Globals\globals.h" />
     <ClInclude Include="Include\Opengl-Imgui\Draw\glDraw.h" />
     <ClInclude Include="Include\ImGui\imconfig.h" />
