@@ -90,11 +90,24 @@ public:
 	}
 };
 
-struct trace_t
-{
-	void* brush;
-	void* face;
-	void* terraface;
-	float dist;
-	bool selected;
-};
+// plane_t structure
+// !!! if this is changed, it must be changed in asm code too !!!
+typedef struct cplane_s {
+	Vector3	normal;
+	float	dist;
+	byte	type;			// for fast side tests: 0,1,2 = axial, 3 = nonaxial
+	byte	signbits;		// signx + (signy<<1) + (signz<<2), used as lookup during collision
+	byte	pad[2];
+} cplane_t;
+
+// a trace is returned when a box is swept through the world
+typedef struct {
+	bool		allsolid;	// if true, plane is not valid
+	bool		startsolid;	// if true, the initial point was in a solid area
+	float		fraction;	// time completed, 1.0 = didn't hit anything
+	Vector3		endpos;		// final position
+	cplane_t	plane;		// surface normal at impact, transformed to world space
+	int			surfaceFlags;	// surface hit
+	int			contents;	// contents on other side of surface hit
+	int			entityNum;	// entity the contacted sirface is a part of
+} trace_t;
