@@ -6,7 +6,7 @@ tCG_Trace Traceline::oCG_Trace;
 void Traceline::OnInit()
 {
 	Traceline::oCG_Trace = (tCG_Trace)(Globals::Game::cgamex86ModuleBase + 0x44040);
-	trace_t traceResult;
+	int traceResult[14];
 	float start[3];
 	start[0] = *(float*)(Globals::Game::cgamex86ModuleBase + 0xA9C838);
 	start[1] = *(float*)(Globals::Game::cgamex86ModuleBase + 0xA9C83C);
@@ -18,13 +18,16 @@ void Traceline::OnInit()
 	end[2] = *(float*)(Globals::Game::cgamex86ModuleBase + 0xA9C840) + *(float*)(Globals::Game::cgamex86ModuleBase + 0xA9C84C) * 131072.0f;
 
 	//if doesnt work pass vector3's as ints
-	oCG_Trace(&traceResult,
+	oCG_Trace(traceResult,
 		(int)start,
 		0,
 		0,
 		(int)end,
 		0,
 		MASK_SOLID);
+
+	for (size_t i = 0; i < 14; i++)
+		printf("traceResult[%d]: %x\n", i, traceResult[i]);
 }
 
 void Traceline::OnLoop()
